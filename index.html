@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Nimbalkar | Software Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styling & Setup --- */
+        :root {
+            --primary-purple: #9D00FF;
+            --secondary-purple: #C07CFF;
+            --dark-bg: #0A0A0A;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-light: #F0F0F0;
+            --text-dark: #A0A0A0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Main Container & Layout --- */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* --- Hero/Profile Section --- */
+        .profile-section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--primary-purple), var(--secondary-purple), transparent, var(--primary-purple));
+            animation: rotateGradient 4s linear infinite;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            background: var(--dark-bg);
+            padding: 5px;
+        }
+
+        .typing-container {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            min-height: 50px; /* Prevents layout shift */
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 4px;
+            height: 2.8rem;
+            background-color: var(--primary-purple);
+            animation: blink 0.8s infinite;
+            vertical-align: bottom;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            font-weight: 300;
+        }
+
+        /* --- Content Sections --- */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Staggered animation for cards */
+        .section-card:nth-child(1) { animation-delay: 1.5s; }
+        .section-card:nth-child(2) { animation-delay: 1.7s; }
+        .section-card:nth-child(3) { animation-delay: 1.9s; }
+        .section-card:nth-child(4) { animation-delay: 2.1s; }
+
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(157, 0, 255, 0.5);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            fill: var(--primary-purple);
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+        
+        .school-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            float: right;
+            margin-left: 15px;
+            background: white; /* Placeholder color */
+        }
+
+        /* --- Keyframes for Animations --- */
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            .typing-container {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-image-wrapper {
+                width: 140px;
+                height: 140px;
+            }
+            .typing-container {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .section-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- --- Profile Section --- -->
+        <header class="profile-section">
+            <div class="profile-image-wrapper">
+                <img src="pp.png" alt="Meet Nimbalkar" class="profile-image">
+            </div>
+            <h1 class="typing-container" id="typing-text"></h1>
+            <p class="subtitle">Crafting digital experiences with code and creativity.</p>
+        </header>
+
+        <!-- --- Content Sections Grid --- -->
+        <main class="sections-grid">
+            <section class="section-card">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6.32L12 21l7-3.5V11.18L23 9zM5 10.18L12 13l7-2.82L12 7zM17 15.32v-4.14l-4 2v4.14z"></path></svg>
+                    Education
+                </h2>
+                <div class="section-content">
+                    <img src="sch.png" alt="Asia English School Logo" class="school-logo">
+                    Currently a student at <strong>Asia English School (Class X-C)</strong>, I am building a strong academic foundation in STEM while actively exploring the vast world of computer science through self-study and practical projects.
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2 class="section-title">
+                     <svg viewBox="0 0 24 24"><path d="M20 6H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM4 8h16v2H4zm0 4h10v2H4zm12 4H4v-2h12z"></path></svg>
+                    About Me
+                </h2>
+                <div class="section-content">
+                    A self-driven developer with a relentless curiosity for technology. I specialize in turning complex problems into elegant, efficient code. My journey is fueled by a passion for creating meaningful digital solutions, from responsive websites to full-featured applications.
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2 class="section-title">
+                     <svg viewBox="0 0 24 24"><path d="m12 8-6 6h12zM12 16l6-6H6z"></path></svg>
+                    Future Goals
+                </h2>
+                <div class="section-content">
+                   I aspire to engineer cutting-edge solutions in <strong>Artificial Intelligence</strong> and Machine Learning. My long-term goal is to contribute significantly to open-source projects that make technology more accessible and to one day lead a team that builds transformative products.
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2 class="section-title">
+                     <svg viewBox="0 0 24 24"><path d="m9.4 16.6-4.6-4.6L6.2 10l3.2 3.2 7.4-7.4 1.4 1.4z"></path></svg>
+                    Core Skills
+                </h2>
+                <div class="section-content">
+                    <strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+), React<br>
+                    <strong>Backend:</strong> Python, Node.js, SQL<br>
+                    <strong>Tools:</strong> Git, Docker, Figma, VS Code<br>
+                    <strong>Interests:</strong> Web3, Competitive Programming, UI/UX Design
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const typingElement = document.getElementById('typing-text');
+            const phrases = [
+                "Hi, I am Meet Nimbalkar!",
+                "A Software Developer.",
+                "A Creative Thinker.",
+                "Welcome to my Portfolio."
+            ];
+            
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                let displayText;
+
+                if (isDeleting) {
+                    // Deleting text
+                    displayText = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    // Typing text
+                    displayText = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                typingElement.innerHTML = `${displayText}<span class="typing-cursor"></span>`;
+                
+                let typeSpeed = isDeleting ? 50 : 120;
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    // Pause at the end of phrase
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    // Move to the next phrase
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+
+            // Initial call to start the animation
+            type();
+        });
+    </script>
+
+</body>
+</html>
